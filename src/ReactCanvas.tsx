@@ -52,7 +52,8 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
   useEffect(() => {
     // unload godot
     if (instance && unload) {
-      instance.unload()
+      instance.unloadEngine()
+      setInstance(undefined);
     }
   }, [instance, unload])
 

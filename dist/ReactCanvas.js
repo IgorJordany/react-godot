@@ -23,7 +23,8 @@ var ReactCanvas = function (_a) {
     useEffect(function () {
         // unload godot
         if (instance && unload) {
-            instance.unload();
+            instance.unloadEngine();
+            setInstance(undefined);
         }
     }, [instance, unload]);
     var progressFunc = useCallback(function (current, total) {
