@@ -19,9 +19,10 @@ export interface ReactEngineProps {
   height?: number
   params?: any
   resize?: boolean
+  unload?: boolean
 }
 
-function toFailure (err: any) {
+function toFailure(err: any) {
   const msg = err.message || err
   console.error(msg)
   return { msg, mode: 'notice', initialized: true }
@@ -32,7 +33,8 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
   pck,
   wasm,
   width = 480,
-  height = 300
+  height = 300,
+  unload
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [instance, setInstance] = useState<Engine | null>(null)
@@ -60,6 +62,9 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
       const olderGodot = typeof instance.setProgressFunc === 'function'
       console.log('starting', canvasRef.current, instance)
 
+      if (unload) {
+        instance.unload()
+      }
       if (!olderGodot && wasm == null) {
         changeLoadingState(
           toFailure(
@@ -74,12 +79,12 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
           olderGodot
             ? pck
             : {
-                executable: wasm?.replace(/\.wasm$/i, ''),
-                canvas: canvasRef.current,
-                mainPack: pck,
-                canvasResizePolicy: 0,
-                onProgress: progressFunc
-              }
+              executable: wasm?.replace(/\.wasm$/i, ''),
+              canvas: canvasRef.current,
+              mainPack: pck,
+              canvasResizePolicy: 0,
+              onProgress: progressFunc
+            }
         )
         .then(() => {
           changeLoadingState({ mode: 'hidden', initialized: true })
@@ -91,7 +96,7 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
         instance.setProgressFunc(progressFunc)
       }
     }
-  }, [instance, pck, wasm, changeLoadingState])
+  }, [instance, pck, wasm, changeLoadingState, unload])
 
   useEffect(() => {
     // older versions of Godot use this method to set the canvas
