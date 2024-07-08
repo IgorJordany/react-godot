@@ -15,10 +15,10 @@
   },
   "scripts": {
     "test": "react-scripts test",
-    "build": "NODE_ENV=production tsc",
-    "build:css": "cp src/styles.css dist/",
-    "start": "NODE_ENV=development tsc -w",
-    "prepare": "npm run build && npm run build:css",
+    "build": "tsc",
+    "build:css": "copy src/styles.css dist/",
+    "start": "tsc -w",
+    "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build"
   },
   "dependencies": {},

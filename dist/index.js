@@ -1,14 +1,14 @@
 /**
  * @function ReactGodot
  */
-import "./styles.css";
-import * as React from "react";
-import { useEffect, useRef, useState } from "react";
-import AsyncLoading from "./AsyncLoading";
-import ReactCanvas from "./ReactCanvas";
+import './styles.css';
+import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import AsyncLoading from './AsyncLoading';
+import ReactCanvas from './ReactCanvas';
 var useScript = function (url, onLoad) {
     useEffect(function () {
-        var script = document.createElement("script");
+        var script = document.createElement('script');
         script.src = url;
         script.async = true;
         script.onload = onLoad;
@@ -23,20 +23,25 @@ var ReactGodot = function (props) {
     var outerRef = useRef(null);
     var _b = useState(null), engine = _b[0], setEngine = _b[1];
     var _c = useState([width, height]), dimensions = _c[0], setDimensions = _c[1];
+    var _d = useState(false), unload = _d[0], setUnload = _d[1];
     useScript(script, function () {
         var scope = window;
         setEngine(function () { return scope.Engine; });
     });
     useEffect(function () {
-        if (resize && outerRef.current) {
+        if (resize && (outerRef.current != null)) {
             setDimensions([
                 outerRef.current.clientWidth,
-                outerRef.current.clientHeight,
+                outerRef.current.clientHeight
             ]);
         }
     }, [resize, outerRef.current]);
-    return (React.createElement("div", { id: "wrap", ref: outerRef },
-        React.createElement(AsyncLoading, null, engine && (React.createElement(ReactCanvas, { pck: pck, engine: engine, wasm: wasm, width: dimensions[0], height: dimensions[1], params: params })))));
+    return (React.createElement("div", { id: 'wrap', ref: outerRef },
+        React.createElement("button", { onClick: function () { return setUnload(true); } }, "close"),
+        "fasdlfjasd asdflkasdf adsfk\u00E7jasdf asd\u00E7fkasdf",
+        React.createElement(AsyncLoading, null,
+            engine && (React.createElement(ReactCanvas, { pck: pck, engine: engine, wasm: wasm, width: dimensions[0], height: dimensions[1], params: params, unload: unload })),
+            React.createElement("button", { onClick: function () { return setUnload(true); } }, "close"))));
 };
 export default ReactGodot;
 //# sourceMappingURL=index.js.map
