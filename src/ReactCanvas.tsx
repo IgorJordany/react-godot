@@ -54,7 +54,7 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
     if (instance && unload) {
       console.log('GAME QUIT')
       instance.prototype.requestQuit()
-      instance.requestQuit()
+      // instance.requestQuit()
       setInstance(undefined)
     }
   }, [instance, unload])
