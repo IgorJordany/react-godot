@@ -49,6 +49,13 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
     }
   }, [engine])
 
+  useEffect(() => {
+    // unload godot
+    if (instance && unload) {
+      instance.unload()
+    }
+  }, [instance, unload])
+
   const progressFunc = useCallback((current: number, total: number) => {
     if (total > 0) {
       changeLoadingState({ mode: 'progress', percent: current / total })
@@ -62,9 +69,6 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
       const olderGodot = typeof instance.setProgressFunc === 'function'
       console.log('starting', canvasRef.current, instance)
 
-      if (unload) {
-        instance.unload()
-      }
       if (!olderGodot && wasm == null) {
         changeLoadingState(
           toFailure(
@@ -96,7 +100,7 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
         instance.setProgressFunc(progressFunc)
       }
     }
-  }, [instance, pck, wasm, changeLoadingState, unload])
+  }, [instance, pck, wasm, changeLoadingState])
 
   useEffect(() => {
     // older versions of Godot use this method to set the canvas

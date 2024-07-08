@@ -66,10 +66,6 @@ const ReactGodot: FunctionComponent<ReactGodotProps> = (props) => {
         onClick={() => setUnload(true)}>
         close
       </button>
-      fasdlfjasd
-      asdflkasdf
-      adsfkçjasdf
-      asdçfkasdf
       <AsyncLoading>
         {engine && (
           <ReactCanvas
@@ -82,10 +78,6 @@ const ReactGodot: FunctionComponent<ReactGodotProps> = (props) => {
             unload={unload}
           />
         )}
-        <button
-          onClick={() => setUnload(true)}>
-          close
-        </button>
       </AsyncLoading>
     </div>
   )

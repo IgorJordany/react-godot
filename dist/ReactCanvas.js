@@ -20,6 +20,12 @@ var ReactCanvas = function (_a) {
             changeLoadingState(toFailure('WebGL not available'));
         }
     }, [engine]);
+    useEffect(function () {
+        // unload godot
+        if (instance && unload) {
+            instance.unload();
+        }
+    }, [instance, unload]);
     var progressFunc = useCallback(function (current, total) {
         if (total > 0) {
             changeLoadingState({ mode: 'progress', percent: current / total });
@@ -32,9 +38,6 @@ var ReactCanvas = function (_a) {
         if (instance != null) {
             var olderGodot = typeof instance.setProgressFunc === 'function';
             console.log('starting', canvasRef.current, instance);
-            if (unload) {
-                instance.unload();
-            }
             if (!olderGodot && wasm == null) {
                 changeLoadingState(toFailure('You must pass in the wasm prop for newer versions of Godot!'));
                 return;
@@ -58,7 +61,7 @@ var ReactCanvas = function (_a) {
                 instance.setProgressFunc(progressFunc);
             }
         }
-    }, [instance, pck, wasm, changeLoadingState, unload]);
+    }, [instance, pck, wasm, changeLoadingState]);
     useEffect(function () {
         // older versions of Godot use this method to set the canvas
         if (instance && typeof instance.setCanvas === 'function') {

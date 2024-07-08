@@ -38,10 +38,7 @@ var ReactGodot = function (props) {
     }, [resize, outerRef.current]);
     return (React.createElement("div", { id: 'wrap', ref: outerRef },
         React.createElement("button", { onClick: function () { return setUnload(true); } }, "close"),
-        "fasdlfjasd asdflkasdf adsfk\u00E7jasdf asd\u00E7fkasdf",
-        React.createElement(AsyncLoading, null,
-            engine && (React.createElement(ReactCanvas, { pck: pck, engine: engine, wasm: wasm, width: dimensions[0], height: dimensions[1], params: params, unload: unload })),
-            React.createElement("button", { onClick: function () { return setUnload(true); } }, "close"))));
+        React.createElement(AsyncLoading, null, engine && (React.createElement(ReactCanvas, { pck: pck, engine: engine, wasm: wasm, width: dimensions[0], height: dimensions[1], params: params, unload: unload })))));
 };
 export default ReactGodot;
 //# sourceMappingURL=index.js.map
