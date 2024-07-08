@@ -21,9 +21,11 @@ var ReactCanvas = function (_a) {
         }
     }, [engine]);
     useEffect(function () {
-        // unload godot
+        // unload
         if (instance && unload) {
-            instance.unloadEngine();
+            console.log('GAME QUIT');
+            instance.prototype.requestQuit();
+            instance.requestQuit();
             setInstance(undefined);
         }
     }, [instance, unload]);
