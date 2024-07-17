@@ -19,11 +19,10 @@ var useScript = function (url, onLoad) {
     }, [url]);
 };
 var ReactGodot = function (props) {
-    var script = props.script, pck = props.pck, wasm = props.wasm, _a = props.resize, resize = _a === void 0 ? false : _a, width = props.width, height = props.height, params = props.params;
+    var script = props.script, pck = props.pck, wasm = props.wasm, _a = props.resize, resize = _a === void 0 ? false : _a, width = props.width, height = props.height, params = props.params, unload = props.unload;
     var outerRef = useRef(null);
     var _b = useState(null), engine = _b[0], setEngine = _b[1];
     var _c = useState([width, height]), dimensions = _c[0], setDimensions = _c[1];
-    var _d = useState(false), unload = _d[0], setUnload = _d[1];
     useScript(script, function () {
         var scope = window;
         setEngine(function () { return scope.Engine; });
@@ -37,7 +36,6 @@ var ReactGodot = function (props) {
         }
     }, [resize, outerRef.current]);
     return (React.createElement("div", { id: 'wrap', ref: outerRef },
-        React.createElement("button", { onClick: function () { return setUnload(true); } }, "close"),
         React.createElement(AsyncLoading, null, engine && (React.createElement(ReactCanvas, { pck: pck, engine: engine, wasm: wasm, width: dimensions[0], height: dimensions[1], params: params, unload: unload })))));
 };
 export default ReactGodot;

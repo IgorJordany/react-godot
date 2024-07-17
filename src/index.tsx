@@ -32,6 +32,7 @@ const useScript = (url: string, onLoad: () => void) => {
 export interface ReactGodotProps {
   script: EngineLoaderDescription
   pck: string
+  unload?: boolean
   wasm?: string
   resize?: boolean
   width?: number
@@ -40,11 +41,10 @@ export interface ReactGodotProps {
 }
 
 const ReactGodot: FunctionComponent<ReactGodotProps> = (props) => {
-  const { script, pck, wasm, resize = false, width, height, params } = props
+  const { script, pck, wasm, resize = false, width, height, params, unload} = props
   const outerRef = useRef<HTMLDivElement>(null)
   const [engine, setEngine] = useState<Engine>(null)
   const [dimensions, setDimensions] = useState([width, height])
-  const [unload, setUnload] = useState<boolean>(false)
 
   useScript(script, () => {
     const scope = window as any
@@ -62,10 +62,6 @@ const ReactGodot: FunctionComponent<ReactGodotProps> = (props) => {
 
   return (
     <div id='wrap' ref={outerRef}>
-      <button
-        onClick={() => setUnload(true)}>
-        close
-      </button>
       <AsyncLoading>
         {engine && (
           <ReactCanvas

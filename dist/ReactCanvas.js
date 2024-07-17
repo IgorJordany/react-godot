@@ -24,7 +24,6 @@ var ReactCanvas = function (_a) {
         // unload
         if (instance && unload) {
             console.log('GAME QUIT');
-            // instance.prototype.requestQuit()
             instance.requestQuit();
             setInstance(undefined);
         }
