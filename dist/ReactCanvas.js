@@ -22,10 +22,10 @@ var ReactCanvas = function (_a) {
     }, [engine]);
     useEffect(function () {
         // unload
-        if (unload) {
+        if (instance && unload) {
             console.log('GAME QUIT');
             instance.requestQuit();
-            setInstance(undefined);
+            // setInstance(undefined)
         }
     }, [instance, unload]);
     var progressFunc = useCallback(function (current, total) {
