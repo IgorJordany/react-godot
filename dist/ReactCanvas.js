@@ -22,7 +22,7 @@ var ReactCanvas = function (_a) {
     }, [engine]);
     useEffect(function () {
         // unload
-        if (instance && unload) {
+        if (unload) {
             console.log('GAME QUIT');
             instance.requestQuit();
             setInstance(undefined);
